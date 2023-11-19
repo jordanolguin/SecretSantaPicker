@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
 const RandomButton = () => {
-  const secretSantas = ["User1", "User2", "User3", "User4", "User5"];
+  const secretSantas = ["John", "Jane", "Paul", "Mary", "Max"];
 
   const [userName, setUserNames] = useState("");
   const [assignedSanta, setAssignedSanta] = useState("");
@@ -18,14 +18,18 @@ const RandomButton = () => {
     <Container>
       <Form>
         <Form.Group controlId="formUserName">
-          <Form.Label>Enter your name</Form.Label>
+          <Form.Label>Enter your name to recieve your secret Santa</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter your name"
             onChange={(e) => setUserNames(e.target.value)}
           />
         </Form.Group>
-        <Button variant="primary" onClick={handleAssignSanta}>
+        <Button
+          variant="outline-danger
+        "
+          onClick={handleAssignSanta}
+        >
           Assign Santa
         </Button>
         {assignedSanta && (
