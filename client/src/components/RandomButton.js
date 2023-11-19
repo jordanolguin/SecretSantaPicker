@@ -13,12 +13,13 @@ const hashString = (s) => {
 
 const RandomButton = () => {
   const participants = [
-    { name: "John", pin: "1234" },
-    { name: "Jane", pin: "5678" },
-    { name: "Paul", pin: "9876" },
-    { name: "Mary", pin: "4321" },
-    { name: "Max", pin: "8765" },
+    { id: 1, name: "John", pin: "1234" },
+    { id: 2, name: "Jane", pin: "5678" },
+    { id: 3, name: "Paul", pin: "9876" },
+    { id: 4, name: "Mary", pin: "4321" },
+    { id: 5, name: "Max", pin: "8765" },
   ];
+
   const exclusions = {
     John: ["Jane"],
     Jane: ["John"],
@@ -52,14 +53,20 @@ const RandomButton = () => {
       );
 
       if (remainingParticipants.length > 0) {
+        // Use a deterministic shuffle based on the hash of the user's input
         let seed = hashString(userName + enteredPin);
-        const pool = [...remainingParticipants];
+        const shuffledParticipants = remainingParticipants
+          .slice() // Create a copy to avoid modifying the original array
+          .sort((a, b) => {
+            const idA = a.id;
+            const idB = b.id;
+            const hashA = (seed += 0x6d2b79f5 + idA);
+            const hashB = (seed += 0x6d2b79f5 + idB);
+            return (Math.abs(hashA) % 2) - (Math.abs(hashB) % 2);
+          });
 
-        const assignedSantaIndex =
-          ((seed % pool.length) + pool.length) % pool.length;
-        const assignedSanta = pool[assignedSantaIndex].name;
+        const assignedSanta = shuffledParticipants[0].name;
 
-        pool.splice(assignedSantaIndex, 1);
         setAssignedSanta(assignedSanta);
       } else {
         alert("Uh oh! No eligible Secret Santas available.");
