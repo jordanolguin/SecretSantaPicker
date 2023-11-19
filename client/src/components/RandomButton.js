@@ -1,35 +1,53 @@
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Row, Col } from "react-bootstrap";
 
 const RandomButton = () => {
-  const people = ["John", "Jane", "Paul", "Mary", "Max"];
+  const participants = [
+    { name: "John", pin: "1234" },
+    { name: "Jane", pin: "5678" },
+    { name: "Paul", pin: "9876" },
+    { name: "Mary", pin: "4321" },
+    { name: "Max", pin: "8765" },
+  ];
   const exclusions = {
     John: ["Jane"],
     Jane: ["John"],
   };
 
   const [userName, setUserName] = useState("");
+  const [userPins, setUserPins] = useState(["", "", "", ""]);
   const [assignedSanta, setAssignedSanta] = useState("");
 
+  const handlePinInputChange = (index, value) => {
+    const newPins = [...userPins];
+    newPins[index] = value;
+    setUserPins(newPins);
+  };
+
   const handleAssignSanta = () => {
-    if (userName.trim() === "") {
-      alert("Please enter a valid name");
+    const enteredPin = userPins.join("");
+
+    if (userName.trim() === "" || enteredPin.trim() === "") {
+      alert("Please enter your name and pin");
       return;
     }
 
-    if (people.includes(userName)) {
-      const remainingPeople = people.filter(
-        (person) =>
-          person !== userName && !exclusions[userName]?.includes(person)
+    const participant = participants.find(
+      (p) => p.name === userName && p.pin === enteredPin
+    );
+
+    if (participant) {
+      const remainingParticipants = participants.filter(
+        (p) => p.name !== userName && !exclusions[userName]?.includes(p.name)
       );
       const assignedSantaIndex = Math.floor(
-        Math.random() * remainingPeople.length
+        Math.random() * remainingParticipants.length
       );
-      const assignedSanta = remainingPeople[assignedSantaIndex];
+      const assignedSanta = remainingParticipants[assignedSantaIndex].name;
 
       setAssignedSanta(assignedSanta);
     } else {
-      alert("Please enter a valid name");
+      alert("Uh oh! Invalid name or pin");
     }
   };
 
@@ -37,12 +55,29 @@ const RandomButton = () => {
     <Container className="mt-5">
       <Form>
         <Form.Group controlId="formUserName">
-          <Form.Label>Enter your name to receive your secret Santa</Form.Label>
+          <Form.Label>Enter your name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter your name"
             onChange={(e) => setUserName(e.target.value)}
           />
+        </Form.Group>
+        <Form.Group controlId="formUserPin">
+          <Form.Label>Enter your 4-digit pin</Form.Label>
+          <Row>
+            {userPins.map((pin, index) => (
+              <Col key={index}>
+                <Form.Control
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  max="9"
+                  value={pin}
+                  onChange={(e) => handlePinInputChange(index, e.target.value)}
+                />
+              </Col>
+            ))}
+          </Row>
         </Form.Group>
         <Button variant="outline-danger" onClick={handleAssignSanta}>
           Assign Santa
