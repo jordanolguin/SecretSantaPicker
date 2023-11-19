@@ -50,15 +50,16 @@ const RandomButton = () => {
       const remainingParticipants = participants.filter(
         (p) => p.name !== userName && !exclusions[userName]?.includes(p.name)
       );
+
       if (remainingParticipants.length > 0) {
-        const seed = hashString(userName + enteredPin);
-        const shuffledParticipants = remainingParticipants.slice().sort(() => {
-          const x = (seed += 0x6d2b79f5);
-          return (Math.abs(x) % remainingParticipants.length) - 1;
-        });
+        let seed = hashString(userName + enteredPin);
+        const pool = [...remainingParticipants];
 
-        const assignedSanta = shuffledParticipants[0].name;
+        const assignedSantaIndex =
+          ((seed % pool.length) + pool.length) % pool.length;
+        const assignedSanta = pool[assignedSantaIndex].name;
 
+        pool.splice(assignedSantaIndex, 1);
         setAssignedSanta(assignedSanta);
       } else {
         alert("Uh oh! No eligible Secret Santas available.");
