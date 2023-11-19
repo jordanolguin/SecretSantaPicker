@@ -2,40 +2,55 @@ import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 
 const RandomButton = () => {
-  const secretSantas = ["John", "Jane", "Paul", "Mary", "Max"];
+  const people = ["John", "Jane", "Paul", "Mary", "Max"];
+  const exclusions = {
+    John: ["Jane"],
+    Jane: ["John"],
+  };
 
-  const [userName, setUserNames] = useState("");
+  const [userName, setUserName] = useState("");
   const [assignedSanta, setAssignedSanta] = useState("");
 
   const handleAssignSanta = () => {
-    const remainingSantas = secretSantas.filter((santa) => santa !== userName);
-    const randomSanta =
-      remainingSantas[Math.floor(Math.random() * remainingSantas.length)];
-    setAssignedSanta(randomSanta);
+    if (userName.trim() === "") {
+      alert("Please enter a valid name");
+      return;
+    }
+
+    if (people.includes(userName)) {
+      const remainingPeople = people.filter(
+        (person) =>
+          person !== userName && !exclusions[userName]?.includes(person)
+      );
+      const assignedSantaIndex = Math.floor(
+        Math.random() * remainingPeople.length
+      );
+      const assignedSanta = remainingPeople[assignedSantaIndex];
+
+      setAssignedSanta(assignedSanta);
+    } else {
+      alert("Please enter a valid name");
+    }
   };
 
   return (
-    <Container>
+    <Container className="mt-5">
       <Form>
         <Form.Group controlId="formUserName">
-          <Form.Label>Enter your name to recieve your secret Santa</Form.Label>
+          <Form.Label>Enter your name to receive your secret Santa</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter your name"
-            onChange={(e) => setUserNames(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </Form.Group>
-        <Button
-          variant="outline-danger
-        "
-          onClick={handleAssignSanta}
-        >
+        <Button variant="outline-danger" onClick={handleAssignSanta}>
           Assign Santa
         </Button>
         {assignedSanta && (
           <div className="mt-3">
             <p>
-              {userName}, your secret santa is {assignedSanta}
+              {userName}, your secret Santa is {assignedSanta}
             </p>
           </div>
         )}
