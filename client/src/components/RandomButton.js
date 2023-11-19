@@ -61,10 +61,10 @@ const RandomButton = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 d-flex align-items-center text-center justify-content-center">
+      <h2>Secret Santa</h2>
       <Form>
         <Form.Group controlId="formUserName">
-          <Form.Label>Enter your name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter your name"
@@ -88,11 +88,15 @@ const RandomButton = () => {
             ))}
           </Row>
         </Form.Group>
-        <Button variant="outline-danger" onClick={handleAssignSanta}>
+        <Button
+          variant="outline-success"
+          onClick={handleAssignSanta}
+          className="mt-3"
+        >
           Assign Santa
         </Button>
         {assignedSanta && (
-          <div className="mt-3">
+          <div className="mt-5">
             <p>
               {userName}, your secret Santa is {assignedSanta}
             </p>
