@@ -89,14 +89,14 @@ const RandomButton = () => {
           </Row>
         </Form.Group>
         <Button
-          variant="outline-success"
+          variant="outline-danger"
           onClick={handleAssignSanta}
           className="mt-3"
         >
           Assign Santa
         </Button>
         {assignedSanta && (
-          <div className="mt-5">
+          <div className="mt-5 secretSanta">
             <p>
               {userName}, your secret Santa is {assignedSanta}
             </p>
