@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 
+const hashString = (s) => {
+  let hash = 0;
+  for (let i = 0; i < s.length; i++) {
+    const char = s.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
+  }
+  return hash;
+};
+
 const RandomButton = () => {
   const participants = [
     { name: "John", pin: "1234" },
@@ -41,15 +51,13 @@ const RandomButton = () => {
         (p) => p.name !== userName && !exclusions[userName]?.includes(p.name)
       );
       if (remainingParticipants.length > 0) {
-        // Fisher-Yates shuffle
-        for (let i = remainingParticipants.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [remainingParticipants[i], remainingParticipants[j]] = [
-            remainingParticipants[j],
-            remainingParticipants[i],
-          ];
-        }
-        const assignedSanta = remainingParticipants[0].name;
+        const seed = hashString(userName + enteredPin);
+        const shuffledParticipants = remainingParticipants.slice().sort(() => {
+          const x = (seed += 0x6d2b79f5);
+          return (Math.abs(x) % remainingParticipants.length) - 1;
+        });
+
+        const assignedSanta = shuffledParticipants[0].name;
 
         setAssignedSanta(assignedSanta);
       } else {
