@@ -28,7 +28,7 @@ const RandomButton = () => {
     const enteredPin = userPins.join("");
 
     if (userName.trim() === "" || enteredPin.trim() === "") {
-      alert("Please enter your name and pin");
+      alert("Please enter your name and pin.");
       return;
     }
 
@@ -40,14 +40,23 @@ const RandomButton = () => {
       const remainingParticipants = participants.filter(
         (p) => p.name !== userName && !exclusions[userName]?.includes(p.name)
       );
-      const assignedSantaIndex = Math.floor(
-        Math.random() * remainingParticipants.length
-      );
-      const assignedSanta = remainingParticipants[assignedSantaIndex].name;
+      if (remainingParticipants.length > 0) {
+        // Fisher-Yates shuffle
+        for (let i = remainingParticipants.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [remainingParticipants[i], remainingParticipants[j]] = [
+            remainingParticipants[j],
+            remainingParticipants[i],
+          ];
+        }
+        const assignedSanta = remainingParticipants[0].name;
 
-      setAssignedSanta(assignedSanta);
+        setAssignedSanta(assignedSanta);
+      } else {
+        alert("Uh oh! No eligible Secret Santas available.");
+      }
     } else {
-      alert("Uh oh! Invalid name or pin");
+      alert("Uh oh! Invalid name or pin.");
     }
   };
 
