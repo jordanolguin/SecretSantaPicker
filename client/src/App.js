@@ -1,10 +1,10 @@
-import NameInput from "./comonents/NameInput";
+import RandomButton from "./components/RandomButton";
 
 function App() {
   return (
     <>
       <h1>hello world</h1>
-      <NameInput />
+      <RandomButton />
     </>
   );
 }
