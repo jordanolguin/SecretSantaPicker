@@ -123,7 +123,12 @@ const secretSantaAssignments = [
 
    ## Contributing
 
-If you'd like to contribute to this project, please follow the [Contributing Guidelines](CONTRIBUTING.md). Your contributions are greatly appreciated!
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+Fork this repository.
+Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature-name`
+Commit your changes and push to your forked repository.
+Submit a pull request to the main repository.
 
 ## License
 
