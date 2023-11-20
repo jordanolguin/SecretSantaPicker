@@ -12,11 +12,6 @@ const App = () => {
     { id: 6, name: "Sue", pin: "1357" },
   ];
 
-  const exclusions = {
-    John: ["Jane"],
-    Jane: ["John"],
-  };
-
   return (
     <Router>
       <Routes>
@@ -27,7 +22,7 @@ const App = () => {
         <Route
           path="/enter-pin/:id"
           element={
-            <EnterPin participants={participants} exclusions={exclusions} />
+            <EnterPin participants={participants} />
           }
         />
       </Routes>
