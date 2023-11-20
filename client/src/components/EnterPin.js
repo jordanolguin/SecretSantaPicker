@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Button, Form, Modal } from "react-bootstrap";
-import { assignSecretSantas } from "../utils/secretSantaUtils";
 
-const EnterPin = ({ participants }) => {
+const EnterPin = ({ participants, secretSantaAssignments }) => {
   const { id } = useParams();
   const participant = participants.find((p) => p.id.toString() === id);
 
   const [userPins, setUserPins] = useState(["", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [assignedSanta, setAssignedSanta] = useState("");
 
   const handleAssignSanta = () => {
     setLoading(true);
@@ -23,11 +21,6 @@ const EnterPin = ({ participants }) => {
     }
 
     if (participant) {
-      const secretSantaAssignments = assignSecretSantas(participants);
-
-      const assignedSantaName = secretSantaAssignments[participant.name.trim()];
-
-      setAssignedSanta(assignedSantaName);
       setShowModal(true);
       setLoading(false);
     }
@@ -41,6 +34,12 @@ const EnterPin = ({ participants }) => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const getAssignedSantaName = () => {
+    const assignedSantaId = secretSantaAssignments[participant?.id];
+    const assignedSanta = participants.find((p) => p.id === assignedSantaId);
+    return assignedSanta?.name || "Unknown";
   };
 
   return (
@@ -85,11 +84,10 @@ const EnterPin = ({ participants }) => {
           <Modal.Title>Assigned Secret Santa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {assignedSanta && (
-            <p>
-              {participant.name}, your assigned Secret Santa is {assignedSanta}.
-            </p>
-          )}
+          <p>
+            {participant?.name}, your assigned Secret Santa is{" "}
+            {getAssignedSantaName()}.
+          </p>
         </Modal.Body>
       </Modal>
     </Container>
