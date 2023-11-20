@@ -1,16 +1,6 @@
 import { useState } from "react";
 import { Button, Container, Form, Row, Col, Spinner } from "react-bootstrap";
 
-const hashString = (s) => {
-  let hash = 0;
-  for (let i = 0; i < s.length; i++) {
-    const char = s.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0;
-  }
-  return hash;
-};
-
 const RandomButton = () => {
   const participants = [
     { id: 1, name: "John", pin: "1234" },
@@ -57,20 +47,17 @@ const RandomButton = () => {
       );
 
       if (remainingParticipants.length > 0) {
-        // Use a deterministic shuffle based on the hash of the user's input
-        let seed = hashString(userName + enteredPin);
-        const shuffledParticipants = remainingParticipants
-          .slice() // Create a copy to avoid modifying the original array
-          .sort((a, b) => {
-            const idA = a.id;
-            const idB = b.id;
-            const hashA = (seed += 0x6d2b79f5 + idA);
-            const hashB = (seed += 0x6d2b79f5 + idB);
-            return (Math.abs(hashA) % 2) - (Math.abs(hashB) % 2);
-          });
+        // Fisher-Yates shuffle
+        const shuffledParticipants = remainingParticipants.slice();
+        for (let i = shuffledParticipants.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledParticipants[i], shuffledParticipants[j]] = [
+            shuffledParticipants[j],
+            shuffledParticipants[i],
+          ];
+        }
 
         const assignedSanta = shuffledParticipants[0].name;
-
         setAssignedSanta(assignedSanta);
       } else {
         alert("Uh oh! No eligible Secret Santas available.");
