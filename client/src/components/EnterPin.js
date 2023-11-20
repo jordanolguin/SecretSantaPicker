@@ -26,20 +26,19 @@ const EnterPin = ({ participants, secretSantaAssignments }) => {
     }
   };
 
-  const handlePinInputChange = (index, value) => {
-    const newPins = [...userPins];
-    newPins[index] = value;
-    setUserPins(newPins);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
   const getAssignedSantaName = () => {
-    const assignedSantaId = secretSantaAssignments[participant?.id];
-    const assignedSanta = participants.find((p) => p.id === assignedSantaId);
-    return assignedSanta?.name || "Unknown";
+    if (!participant) {
+      console.error("Participant not found:", id);
+      return "Unknown";
+    }
+
+    const assignedSantaName = secretSantaAssignments[participant.name];
+    if (!assignedSantaName) {
+      console.error("Assigned Santa name not found for participant:", participant);
+      return "Unknown";
+    }
+
+    return assignedSantaName || "Unknown";
   };
 
   return (
@@ -60,7 +59,7 @@ const EnterPin = ({ participants, secretSantaAssignments }) => {
                 min="0"
                 max="9"
                 value={pin}
-                onChange={(e) => handlePinInputChange(index, e.target.value)}
+                onChange={(e) => setUserPins([...userPins.slice(0, index), e.target.value, ...userPins.slice(index + 1)])}
                 style={{ width: "25%", marginRight: "0.75em" }}
               />
             ))}
@@ -77,7 +76,7 @@ const EnterPin = ({ participants, secretSantaAssignments }) => {
       </Form>
       <Modal
         show={showModal}
-        onHide={handleCloseModal}
+        onHide={() => setShowModal(false)}
         style={{ textAlign: "center" }}
       >
         <Modal.Header closeButton>
