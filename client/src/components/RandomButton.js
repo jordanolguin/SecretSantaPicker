@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, Spinner } from "react-bootstrap";
 
 const hashString = (s) => {
   let hash = 0;
@@ -18,6 +18,7 @@ const RandomButton = () => {
     { id: 3, name: "Paul", pin: "9876" },
     { id: 4, name: "Mary", pin: "4321" },
     { id: 5, name: "Max", pin: "8765" },
+    { id: 6, name: "Sue", pin: "1357" },
   ];
 
   const exclusions = {
@@ -28,6 +29,7 @@ const RandomButton = () => {
   const [userName, setUserName] = useState("");
   const [userPins, setUserPins] = useState(["", "", "", ""]);
   const [assignedSanta, setAssignedSanta] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handlePinInputChange = (index, value) => {
     const newPins = [...userPins];
@@ -36,10 +38,12 @@ const RandomButton = () => {
   };
 
   const handleAssignSanta = () => {
+    setLoading(true);
     const enteredPin = userPins.join("");
 
     if (userName.trim() === "" || enteredPin.trim() === "") {
       alert("Please enter your name and pin.");
+      setLoading(false);
       return;
     }
 
@@ -74,6 +78,7 @@ const RandomButton = () => {
     } else {
       alert("Uh oh! Invalid name or pin.");
     }
+    setLoading(false);
   };
 
   return (
@@ -108,8 +113,15 @@ const RandomButton = () => {
           variant="outline-danger"
           onClick={handleAssignSanta}
           className="mt-3"
+          disabled={loading}
         >
-          Assign Santa
+          {loading ? (
+            <Spinner animation="border" role="status" size="sm">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          ) : (
+            "Assign Secret Santa"
+          )}
         </Button>
         {assignedSanta && (
           <div className="mt-5 secretSanta">
