@@ -10,21 +10,6 @@ function shuffleArray(array) {
   }
 }
 
-// Function to assign Secret Santas
-function assignSecretSantas(people) {
-  const shuffledPeople = [...people];
-  shuffleArray(shuffledPeople);
-
-  const assignments = {};
-  for (let i = 0; i < shuffledPeople.length; i++) {
-    const currentPerson = shuffledPeople[i];
-    const nextPerson = shuffledPeople[(i + 1) % shuffledPeople.length];
-    assignments[currentPerson.name] = nextPerson.name;
-  }
-
-  return assignments;
-}
-
 const EnterPin = ({ participants, exclusions }) => {
   const { id } = useParams();
   const participant = participants.find((p) => p.id.toString() === id);
@@ -34,35 +19,58 @@ const EnterPin = ({ participants, exclusions }) => {
   const [showModal, setShowModal] = useState(false);
   const [assignedSanta, setAssignedSanta] = useState("");
 
+  const assignSecretSantas = (people) => {
+    const shuffledPeople = [...people];
+    shuffleArray(shuffledPeople);
+
+    const assignments = {};
+    for (let i = 0; i < shuffledPeople.length; i++) {
+      const currentPerson = shuffledPeople[i];
+      const nextPersonIndex = (i + 1) % shuffledPeople.length;
+      const nextPerson = shuffledPeople[nextPersonIndex];
+      
+      if (currentPerson.name !== nextPerson.name) {
+        assignments[currentPerson.name] = nextPerson.name;
+      } else {
+        const temp = shuffledPeople[nextPersonIndex];
+        shuffledPeople[nextPersonIndex] = shuffledPeople[(nextPersonIndex + 1) % shuffledPeople.length];
+        shuffledPeople[(nextPersonIndex + 1) % shuffledPeople.length] = temp;
+        i--;
+      }
+    }
+
+    return assignments;
+  };
+
   const handleAssignSanta = () => {
     setLoading(true);
-
+  
     const enteredPin = userPins.join("");
-
+  
     if (enteredPin.trim() === "") {
       setLoading(false);
       return;
     }
-
+  
     if (participant) {
       const remainingParticipants = participants.filter(
         (p) =>
           p.id !== participant.id &&
           !exclusions[participant.name]?.includes(p.name)
       );
-
+  
       if (remainingParticipants.length > 0) {
         const secretSantaAssignments = assignSecretSantas(
           remainingParticipants
         );
-        const assignedSanta = secretSantaAssignments[participant.name];
-        setAssignedSanta(assignedSanta);
+        const assignedSantaName = secretSantaAssignments[participant.name];
+        setAssignedSanta(assignedSantaName);
         setShowModal(true);
       } else {
         setLoading(false);
       }
     }
-  };
+  };  
 
   const handlePinInputChange = (index, value) => {
     const newPins = [...userPins];
