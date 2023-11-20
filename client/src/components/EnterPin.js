@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Container, Button, Form, Modal } from "react-bootstrap";
 import { assignSecretSantas } from "../utils/secretSantaUtils";
 
-const EnterPin = ({ participants, exclusions }) => {
+const EnterPin = ({ participants }) => {
   const { id } = useParams();
   const participant = participants.find((p) => p.id.toString() === id);
 
@@ -25,25 +25,23 @@ const EnterPin = ({ participants, exclusions }) => {
 
     if (participant) {
       const remainingParticipants = participants.filter(
-        (p) =>
-          p.id !== participant.id &&
-          !exclusions[participant.name]?.includes(p.name)
+        (p) => p.id !== participant.id
       );
 
       if (remainingParticipants.length > 0) {
-        // Check if the assignment is already memoized
-        if (assignments[participant.name]) {
-          setAssignedSanta(assignments[participant.name]);
-          setShowModal(true);
-        } else {
-          const secretSantaAssignments = assignSecretSantas(
-            remainingParticipants
-          );
-          const assignedSantaName = secretSantaAssignments[participant.name];
-          setAssignments({ ...assignments, [participant.name]: assignedSantaName });
-          setAssignedSanta(assignedSantaName);
-          setShowModal(true);
-        }
+        const secretSantaAssignments = assignSecretSantas(
+          remainingParticipants
+        );
+
+        const assignedSantaName = secretSantaAssignments[participant.name.trim()];
+
+        setAssignments({
+          ...assignments,
+          [participant.name]: assignedSantaName,
+        });
+
+        setAssignedSanta(assignedSantaName);
+        setShowModal(true);
       } else {
         setLoading(false);
       }
