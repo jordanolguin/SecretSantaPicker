@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import ParticipantsList from "./components/ParticipantsList";
 import EnterPin from "./components/EnterPin";
 
