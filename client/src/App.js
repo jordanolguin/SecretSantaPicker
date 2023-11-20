@@ -13,29 +13,25 @@ const App = () => {
   ];
 
   // Hard-coded secretSantaAssignments
-const getSecretSantaAssignments = () => {
-  return {
-    1: "6",
-    2: "5",
-    3: "4",
-    4: "1",
-    5: "3",
-    6: "2",
+  const secretSantaAssignments = {
+    John: "Sue",
+    Jane: "Max",
+    Paul: "Mary",
+    Mary: "John",
+    Max: "Paul",
+    Sue: "Jane",
   };
-};
 
   return (
     <Router>
       <Routes>
         <Route
           path="/"
-          element={<ParticipantsList participants={participants} getSecretSantaAssignments={getSecretSantaAssignments} />}
+          element={<ParticipantsList participants={participants} />}
         />
         <Route
           path="/enter-pin/:id"
-          element={
-            <EnterPin participants={participants} />
-          }
+          element={<EnterPin participants={participants} secretSantaAssignments={secretSantaAssignments} />}
         />
       </Routes>
     </Router>
