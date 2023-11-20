@@ -11,7 +11,6 @@ const EnterPin = ({ participants }) => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [assignedSanta, setAssignedSanta] = useState("");
-  const [assignments, setAssignments] = useState({});
 
   const handleAssignSanta = () => {
     setLoading(true);
@@ -24,27 +23,13 @@ const EnterPin = ({ participants }) => {
     }
 
     if (participant) {
-      const remainingParticipants = participants.filter(
-        (p) => p.id !== participant.id
-      );
+      const secretSantaAssignments = assignSecretSantas(participants);
 
-      if (remainingParticipants.length > 0) {
-        const secretSantaAssignments = assignSecretSantas(
-          remainingParticipants
-        );
+      const assignedSantaName = secretSantaAssignments[participant.name.trim()];
 
-        const assignedSantaName = secretSantaAssignments[participant.name.trim()];
-
-        setAssignments({
-          ...assignments,
-          [participant.name]: assignedSantaName,
-        });
-
-        setAssignedSanta(assignedSantaName);
-        setShowModal(true);
-      } else {
-        setLoading(false);
-      }
+      setAssignedSanta(assignedSantaName);
+      setShowModal(true);
+      setLoading(false);
     }
   };
 
