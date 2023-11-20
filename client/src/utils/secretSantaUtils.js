@@ -7,15 +7,15 @@ function shuffleArray(array) {
 }
 
 // Function to assign Secret Santas
-export function assignSecretSantas(people) {
-    const shuffledPeople = [...people];
-    shuffleArray(shuffledPeople);
+export function assignSecretSantas(participants) {
+    const shuffledParticipants = [...participants];
+    shuffleArray(shuffledParticipants);
 
     const assignments = {};
-    for (let i = 0; i < shuffledPeople.length; i++) {
-        const currentPerson = shuffledPeople[i];
-        const nextPerson = shuffledPeople[(i + 1) % shuffledPeople.length];
-        assignments[currentPerson.name] = nextPerson.name;
+    for (let i = 0; i < shuffledParticipants.length; i++) {
+        const currentParticipant = shuffledParticipants[i];
+        const nextParticipant = shuffledParticipants[(i + 1) % shuffledParticipants.length];
+        assignments[currentParticipant.name] = nextParticipant.name;
     }
     return assignments;
 }
