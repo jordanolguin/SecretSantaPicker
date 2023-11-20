@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Button, Form, Modal } from "react-bootstrap";
-
-// Function to shuffle an array using Fisher-Yates algorithm
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
+import { assignSecretSantas } from "../utils/secretSantaUtils";
 
 const EnterPin = ({ participants, exclusions }) => {
   const { id } = useParams();
@@ -18,59 +11,44 @@ const EnterPin = ({ participants, exclusions }) => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [assignedSanta, setAssignedSanta] = useState("");
-
-  const assignSecretSantas = (people) => {
-    const shuffledPeople = [...people];
-    shuffleArray(shuffledPeople);
-
-    const assignments = {};
-    for (let i = 0; i < shuffledPeople.length; i++) {
-      const currentPerson = shuffledPeople[i];
-      const nextPersonIndex = (i + 1) % shuffledPeople.length;
-      const nextPerson = shuffledPeople[nextPersonIndex];
-      
-      if (currentPerson.name !== nextPerson.name) {
-        assignments[currentPerson.name] = nextPerson.name;
-      } else {
-        const temp = shuffledPeople[nextPersonIndex];
-        shuffledPeople[nextPersonIndex] = shuffledPeople[(nextPersonIndex + 1) % shuffledPeople.length];
-        shuffledPeople[(nextPersonIndex + 1) % shuffledPeople.length] = temp;
-        i--;
-      }
-    }
-
-    return assignments;
-  };
+  const [assignments, setAssignments] = useState({});
 
   const handleAssignSanta = () => {
     setLoading(true);
-  
+
     const enteredPin = userPins.join("");
-  
+
     if (enteredPin.trim() === "") {
       setLoading(false);
       return;
     }
-  
+
     if (participant) {
       const remainingParticipants = participants.filter(
         (p) =>
           p.id !== participant.id &&
           !exclusions[participant.name]?.includes(p.name)
       );
-  
+
       if (remainingParticipants.length > 0) {
-        const secretSantaAssignments = assignSecretSantas(
-          remainingParticipants
-        );
-        const assignedSantaName = secretSantaAssignments[participant.name];
-        setAssignedSanta(assignedSantaName);
-        setShowModal(true);
+        // Check if the assignment is already memoized
+        if (assignments[participant.name]) {
+          setAssignedSanta(assignments[participant.name]);
+          setShowModal(true);
+        } else {
+          const secretSantaAssignments = assignSecretSantas(
+            remainingParticipants
+          );
+          const assignedSantaName = secretSantaAssignments[participant.name];
+          setAssignments({ ...assignments, [participant.name]: assignedSantaName });
+          setAssignedSanta(assignedSantaName);
+          setShowModal(true);
+        }
       } else {
         setLoading(false);
       }
     }
-  };  
+  };
 
   const handlePinInputChange = (index, value) => {
     const newPins = [...userPins];
