@@ -12,15 +12,14 @@ const App = () => {
     { id: 6, name: "Sue", pin: "1357" },
   ];
 
-  // Hard-coded secretSantaAssignments
-  const secretSantaAssignments = {
-    John: "Sue",
-    Jane: "Max",
-    Paul: "Mary",
-    Mary: "John",
-    Max: "Paul",
-    Sue: "Jane",
-  };
+  const secretSantaAssignments = [
+    6, // John's secret Santa
+    5, // Jane's secret Santa
+    4, // Paul's secret Santa
+    1, // Mary's secret Santa
+    3, // Max's secret Santa
+    2, // Sue's secret Santa
+  ];
 
   return (
     <Router>
