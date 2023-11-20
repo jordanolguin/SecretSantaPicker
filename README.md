@@ -1,6 +1,19 @@
-# Secret Santa Picker 
+# Secret Santa App
 
-Welcome to the Secret Santa App! This application allows you to organize and manage a Secret Santa gift exchange among a group of friends and family! Feel free to use this code as the base for your upcoming Secret Santa Exchange!
+Welcome to the Secret Santa App! This application allows you to organize and manage a Secret Santa gift exchange among a group of participants.
+
+## Table of Contents
+
+- [Features](#features)
+- [About](#about)
+  - [Purpose](#purpose)
+  - [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [How to Use](#how-to-use)
+- [Customization](#customization)
+- [CLI Secret Santa Generator](#cli-secret-santa-generator)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
@@ -8,13 +21,37 @@ Welcome to the Secret Santa App! This application allows you to organize and man
 - Easy navigation between participants using the provided links.
 - Secure pin input for participant verification.
 
+## About
+
+Welcome to the Secret Santa App, a front-end-only solution designed for organizing delightful Secret Santa gift exchanges. This project utilizes the following technologies:
+
+- **React:** A powerful JavaScript library for building user interfaces.
+- **Bootstrap:** A sleek and responsive front-end framework for web development.
+- **NodeJS:** A runtime environment for executing JavaScript code server-side.
+- **Prompt-Sync:** A simple command-line prompt for synchronous input.
+
+### Purpose
+
+The Secret Santa App is a fun and interactive way to enhance your next Secret Santa experience. With a user-friendly interface and secure pin verification, participants can easily discover their assigned Secret Santa and make the gift exchange memorable.
+
+### Technologies Used
+
+- React
+- Bootstrap
+- NodeJS
+- Prompt-Sync
+
+## Getting Started
+
+Follow the [installation instructions](#getting-started) in the README to set up the project on your local machine and start enjoying the Secret Santa experience!
+
 ## How to Use
 
 1. **Clone the repository:**
 
     ```bash
     git clone https://github.com/jordanolguin/SecretSantaPicker.git
-    cd secret-santa-app
+    cd client
     ```
 
 2. **Install dependencies:**
@@ -51,3 +88,47 @@ const secretSantaAssignments = [
   5, // Jane's secret Santa
   // ...
 ];
+```
+
+## CLI Secret Santa Generator
+
+1. **Navigate to the CLI directory:**
+
+   If you want to generate Secret Santa assignments using the command line interface (CLI), you can use the provided `secretSantaGenerator.js` script.
+
+   ```bash
+   cd secret-santa-app
+    ```
+   
+2. **Run the CLI script:**
+
+   ```bash
+   node secretSantaGenerator.js
+    ```
+
+   Follow the prompts to enter the number of participants and their names. The script will generate Secret Santa assignments and display them in the console.
+
+3. **Update the React App:**
+
+   Update the `secretSantaAssignments` array in `App.js` with the generated assignments.
+
+   ```javascript
+   // App.js
+
+    const secretSantaAssignments = [
+      // Update with the generated Secret Santa assignments
+      // ...
+    ];
+   ```
+
+   ## Contributing
+
+If you'd like to contribute to this project, please follow the [Contributing Guidelines](CONTRIBUTING.md). Your contributions are greatly appreciated!
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+Feel free to customize it further to fit your preferences!
+Happy Secret Santa-ing! 🎅🎁
+
+    
