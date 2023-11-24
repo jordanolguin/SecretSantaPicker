@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SecretSantaPicker/static/css/main.4c50de67.css",
+    "main.js": "/SecretSantaPicker/static/js/main.b8e689de.js",
+    "index.html": "/SecretSantaPicker/index.html",
+    "main.4c50de67.css.map": "/SecretSantaPicker/static/css/main.4c50de67.css.map",
+    "main.b8e689de.js.map": "/SecretSantaPicker/static/js/main.b8e689de.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4c50de67.css",
+    "static/js/main.b8e689de.js"
+  ]
+}
