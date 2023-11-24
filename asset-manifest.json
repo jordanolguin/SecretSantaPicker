@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/SecretSantaPicker/static/css/main.4c50de67.css",
-    "main.js": "/SecretSantaPicker/static/js/main.b8e689de.js",
+    "main.js": "/SecretSantaPicker/static/js/main.4da098a4.js",
     "index.html": "/SecretSantaPicker/index.html",
     "main.4c50de67.css.map": "/SecretSantaPicker/static/css/main.4c50de67.css.map",
-    "main.b8e689de.js.map": "/SecretSantaPicker/static/js/main.b8e689de.js.map"
+    "main.4da098a4.js.map": "/SecretSantaPicker/static/js/main.4da098a4.js.map"
   },
   "entrypoints": [
     "static/css/main.4c50de67.css",
-    "static/js/main.b8e689de.js"
+    "static/js/main.4da098a4.js"
   ]
 }
