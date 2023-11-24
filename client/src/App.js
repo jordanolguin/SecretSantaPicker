@@ -22,7 +22,7 @@ const App = () => {
           element={<ParticipantsList participants={participants} />}
         />
         <Route
-          path="SecretSantaPicker/enter-pin/:id"
+          path="/SecretSantaPicker/enter-pin/:id"
           element={
             <EnterPin
               participants={participants}
