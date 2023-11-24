@@ -12,7 +12,7 @@ const App = () => {
     { id: 6, name: "Ashley", pin: "1357" },
   ];
 
-  const secretSantaAssignments = [4, 3, 6, 5, 2, 1];
+  const secretSantaAssignments = [2, 5, 1, 3, 6, 4];
 
   return (
     <Router>
