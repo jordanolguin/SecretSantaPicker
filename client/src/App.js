@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route
-          path="SecretSantaPicker/"
+          path="/SecretSantaPicker"
           element={<ParticipantsList participants={participants} />}
         />
         <Route
