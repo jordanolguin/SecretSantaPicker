@@ -18,11 +18,11 @@ const App = () => {
     <Router>
       <Routes>
         <Route
-          path="/SecretSantaPicker"
+          path="/"
           element={<ParticipantsList participants={participants} />}
         />
         <Route
-          path="/SecretSantaPicker/enter-pin/:id"
+          path="/enter-pin/:id"
           element={
             <EnterPin
               participants={participants}
