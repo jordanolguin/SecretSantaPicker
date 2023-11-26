@@ -1,6 +1,7 @@
 # Secret Santa App
 
 Welcome to the Secret Santa App! This application allows you to organize and manage a Secret Santa gift exchange among a group of participants.
+
 ![Home Page Example](./screenshots/homepageExample.png)
 
 ## Table of Contents
@@ -20,6 +21,8 @@ Welcome to the Secret Santa App! This application allows you to organize and man
 - Participants can enter their 4-digit pin to find out who their assigned Secret Santa is.
 - Easy navigation between participants using the provided links.
 - Secure pin input for participant verification.
+
+![Home Page Example](./screenshots/participantExample.png)
 
 ## About
 
