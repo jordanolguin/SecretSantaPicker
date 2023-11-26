@@ -1,13 +1,13 @@
 # Secret Santa App
 
 Welcome to the Secret Santa App! This application allows you to organize and manage a Secret Santa gift exchange among a group of participants.
+![Home Page Example](./screenshots/homepageExample.png)
 
 ## Table of Contents
 
 - [Features](#features)
 - [About](#about)
   - [Purpose](#purpose)
-  - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
 - [How to Use](#how-to-use)
 - [Customization](#customization)
@@ -34,13 +34,6 @@ Welcome to the Secret Santa App, a front-end-only solution designed for organizi
 
 The Secret Santa App is a fun and interactive way to enhance your next Secret Santa experience. With a user-friendly interface and secure pin verification, participants can easily discover their assigned Secret Santa and make the gift exchange memorable.
 
-### Technologies Used
-
-- React
-- Bootstrap
-- NodeJS
-- Prompt-Sync
-
 ## Getting Started
 
 Follow the [installation instructions](#getting-started) in the README to set up the project on your local machine and start enjoying the Secret Santa experience!
@@ -49,24 +42,24 @@ Follow the [installation instructions](#getting-started) in the README to set up
 
 1. **Clone the repository:**
 
-    ```bash
-    git clone https://github.com/jordanolguin/SecretSantaPicker.git
-    cd client
-    ```
+   ```bash
+   git clone https://github.com/jordanolguin/SecretSantaPicker.git
+   cd client
+   ```
 
 2. **Install dependencies:**
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. **Run the app:**
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
-    Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to use the app.
+   Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to use the app.
 
 ## Customization
 
@@ -98,13 +91,13 @@ const secretSantaAssignments = [
 
    ```bash
    cd secret-santa-app
-    ```
-   
+   ```
+
 2. **Run the CLI script:**
 
    ```bash
    node secretSantaGenerator.js
-    ```
+   ```
 
    Follow the prompts to enter the number of participants and their names. The script will generate Secret Santa assignments and display them in the console.
 
@@ -115,10 +108,10 @@ const secretSantaAssignments = [
    ```javascript
    // App.js
 
-    const secretSantaAssignments = [
-      // Update with the generated Secret Santa assignments
-      // ...
-    ];
+   const secretSantaAssignments = [
+     // Update with the generated Secret Santa assignments
+     // ...
+   ];
    ```
 
    ## Contributing
@@ -134,7 +127,4 @@ Submit a pull request to the main repository.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-
 Happy Secret Santa-ing! 🎅🎁
-
-    
